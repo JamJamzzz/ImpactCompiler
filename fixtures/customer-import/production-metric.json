@@ -1,0 +1,19 @@
+{
+  "name": "p95 request latency",
+  "before": 120,
+  "after": 31,
+  "unit": "sec",
+  "direction": "lower_is_better",
+  "operation": "percentage_reduction",
+  "environment": "production",
+  "service": "customer-import",
+  "window": {
+    "before": "2026-01-01/2026-01-07",
+    "after": "2026-02-01/2026-02-07"
+  },
+  "sample_size": {
+    "before": 1200000,
+    "after": 1400000
+  },
+  "source": "exports/customer-import-latency.json"
+}

@@ -1,0 +1,46 @@
+{
+  "name": "impact-compiler",
+  "version": "0.1.0",
+  "description": "Deterministic, evidence-backed Impact quantification from git commits, benchmark/test artifacts, pull requests, and tickets.",
+  "type": "module",
+  "bin": {
+    "impact-compiler": "./src/cli/impact-compiler.mjs"
+  },
+  "exports": {
+    ".": "./src/cli/impact-compiler.mjs",
+    "./core/impact-compiler": "./src/core/impact-compiler.mjs",
+    "./core/impact-schema": "./src/core/impact-schema.mjs",
+    "./core/validation": "./src/core/validation.mjs",
+    "./evidence/git-adapter": "./src/evidence/git-adapter.mjs",
+    "./evidence/benchmark-adapter": "./src/evidence/benchmark-adapter.mjs",
+    "./evidence/pr-adapter": "./src/evidence/pr-adapter.mjs",
+    "./evidence/ticket-adapter": "./src/evidence/ticket-adapter.mjs",
+    "./evidence/evidence-normalizer": "./src/evidence/evidence-normalizer.mjs",
+    "./evidence/evidence-linker": "./src/evidence/evidence-linker.mjs",
+    "./metrics/deterministic-metric-engine": "./src/metrics/deterministic-metric-engine.mjs",
+    "./providers/llm-provider": "./src/providers/llm-provider.mjs",
+    "./providers/claude-cli-provider": "./src/providers/claude-cli-provider.mjs",
+    "./renderers/review-renderer": "./src/renderers/review-renderer.mjs",
+    "./measurement/measurement-plan": "./src/measurement/measurement-plan.mjs",
+    "./measurement/measurement-runner": "./src/measurement/measurement-runner.mjs",
+    "./measurement/stats-engine": "./src/measurement/stats-engine.mjs",
+    "./measurement/attribution": "./src/measurement/attribution.mjs",
+    "./candidates/impact-candidate-builder": "./src/candidates/impact-candidate-builder.mjs",
+    "./candidates/quality-profile": "./src/candidates/quality-profile.mjs",
+    "./candidates/allowed-numeric-facts": "./src/candidates/allowed-numeric-facts.mjs",
+    "./candidates/ranking": "./src/candidates/ranking.mjs",
+    "./candidates/impact-opportunities": "./src/candidates/impact-opportunities.mjs",
+    "./facts/quantitative-fact": "./src/facts/quantitative-fact.mjs",
+    "./facts/quantitative-fact-adapter": "./src/facts/quantitative-fact-adapter.mjs",
+    "./derived/formula-registry": "./src/derived/formula-registry.mjs",
+    "./derived/derivation-request": "./src/derived/derivation-request.mjs",
+    "./derived/unit-conversion": "./src/derived/unit-conversion.mjs"
+  },
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.mjs\""
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}

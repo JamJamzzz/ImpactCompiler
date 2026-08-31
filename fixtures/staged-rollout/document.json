@@ -1,0 +1,9 @@
+{
+  "source_reference": "docs/staged-migration-rollout-plan.md",
+  "title": "Staged Migration Rollout Plan",
+  "author": "jane",
+  "participants": ["jane", "platform-team"],
+  "doc_type": "rollout-plan",
+  "content": "Designed the rollout plan and coordinated the migration across the platform team. The plan stages the migration across three regions to limit blast radius.",
+  "related_commit_sha": "__COMMIT_SHA__"
+}

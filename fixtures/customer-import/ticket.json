@@ -1,0 +1,16 @@
+{
+  "provider": "jira",
+  "ticket_id": "ENG-4821",
+  "url": "https://example.atlassian.net/browse/ENG-4821",
+  "title": "Customer import jobs timeout at 100k records",
+  "description": "Large customer import jobs begin timing out once the input file exceeds roughly 100,000 records, blocking onboarding for our largest accounts.",
+  "business_context": "Blocks onboarding for enterprise customers with 100k-record workloads.",
+  "severity": "high",
+  "priority": "P1",
+  "acceptance_criteria": [
+    "A 100k-record customer import file completes without timing out"
+  ],
+  "scope": "Batch customer import pipeline only.",
+  "linked_pr_ids": ["482"],
+  "linked_commit_shas": []
+}

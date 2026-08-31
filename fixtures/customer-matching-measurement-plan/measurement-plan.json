@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "benchmark_id": "customer-matching-v1",
+  "repo": "/path/to/repo",
+  "base_ref": "abc123",
+  "target_ref": "def456",
+  "command": {
+    "executable": "node",
+    "args": ["benchmarks/matching.mjs"],
+    "cwd": "."
+  },
+  "setup_command": {
+    "executable": "npm",
+    "args": ["ci"],
+    "cwd": "."
+  },
+  "result": {
+    "mode": "stdout_json",
+    "json_path": "duration_seconds",
+    "name": "customer matching runtime",
+    "unit": "sec",
+    "direction": "lower_is_better",
+    "operation": "percentage_reduction",
+    "primary_statistic": "median"
+  },
+  "warmup_runs": 5,
+  "measurement_runs": 30,
+  "timeout_ms": 60000,
+  "scope": {
+    "dataset_name": "synthetic-customers-v3",
+    "records": 1000000
+  }
+}

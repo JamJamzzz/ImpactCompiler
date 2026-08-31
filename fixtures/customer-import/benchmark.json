@@ -1,0 +1,8 @@
+{
+  "name": "customer import (100k records)",
+  "before": 120,
+  "after": 31,
+  "unit": "sec",
+  "direction": "lower_is_better",
+  "operation": "percentage_reduction"
+}

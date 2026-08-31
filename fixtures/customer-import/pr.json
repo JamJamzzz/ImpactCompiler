@@ -1,0 +1,16 @@
+{
+  "provider": "github",
+  "pr_id": "482",
+  "url": "https://github.com/example/repo/pull/482",
+  "title": "batch customer import records and add indexes",
+  "body": "Batches insert calls for customer import and adds two indexes used by the import query.",
+  "author": "octocat",
+  "reviewers": ["reviewer-a"],
+  "source_branch": "feature/batch-customer-import",
+  "target_branch": "main",
+  "merged": true,
+  "merge_commit_sha": "__COMMIT_SHA__",
+  "linked_commit_shas": ["__COMMIT_SHA__"],
+  "changed_files": ["import/customer_import.js", "db/migrations/2026_add_import_indexes.sql"],
+  "review_context": "Approved after one review round; no changes requested."
+}
