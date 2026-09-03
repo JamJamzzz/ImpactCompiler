@@ -199,3 +199,29 @@ personal impact records outside the public repository (the `evaluations/` direct
 ```bash
 npm test
 ```
+
+## Continuous Integration
+
+GitHub Actions runs the complete test suite on every pull request and on every push to `main`.
+The required matrix covers `ubuntu-latest` and `windows-latest` with Node.js `18.x` and `22.x`.
+Linux and Windows are the meaningful supported-platform checks here: the package has no macOS-only
+code path, while Windows exercises path, process, and worktree behavior independently from Linux.
+
+Each job performs the same reproducible commands used locally:
+
+```bash
+npm ci
+npm test
+```
+
+The suite protects measurement and provenance invariants including argument-safe, non-shell
+benchmark execution; explicit working directories; timeout and output-limit handling; isolated
+worktree cleanup; git SHA resolution; warmup and alternating base/target runs; raw-sample and
+all-required-run semantics; deterministic statistics; no fabricated metrics; and rejection of
+unsupported provider-authored numbers. GitHub-hosted runner timing is intentionally not used as
+performance evidence and CI does not gate on absolute throughput or latency thresholds.
+
+The workflow uses the minimum repository permission required (`contents: read`). It does not
+publish packages, deploy, access secrets, or create releases. A meaningful limitation is that CI
+verifies correctness and deterministic behavior in clean runners; it cannot establish production
+performance, production causality, or stable wall-clock benchmark results.
