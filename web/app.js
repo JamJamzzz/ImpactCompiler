@@ -12,16 +12,49 @@ const demoArtifact = {
 };
 
 const $ = (id) => document.getElementById(id);
-const escapeText = (value) => String(value ?? '').replace(/[<>]/g, '');
-const number = (value) => typeof value === 'number' ? value.toLocaleString(undefined, { maximumFractionDigits: 2 }) : escapeText(value || '—');
+
+// Real HTML-entity escaping (not just angle-bracket stripping) for every
+// user-controlled value interpolated into innerHTML below — an impact.json
+// is arbitrary local input, never trusted as markup.
+const HTML_ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+const escapeText = (value) => String(value ?? '').replace(/[&<>"']/g, (c) => HTML_ESCAPES[c]);
+const number = (value) => (typeof value === 'number' && Number.isFinite(value))
+  ? value.toLocaleString(undefined, { maximumFractionDigits: 2 })
+  : escapeText(value || '—');
 const titleCase = (value) => escapeText(String(value || '').replaceAll('_', ' ')).replace(/\b\w/g, (c) => c.toUpperCase());
 
-function render(artifact) {
-  const evidence = artifact.evidence || [], metrics = artifact.metrics || [], claims = artifact.claims || [], candidates = artifact.impact_candidates || [];
+// Defensive array access: a hand-edited or unexpected artifact might carry a
+// non-array value (or non-object entries) under a field that's normally an
+// array — never let that crash the page, and never fabricate replacement
+// values for what's missing.
+const asObjectList = (value) => (Array.isArray(value) ? value : []).filter((v) => v !== null && typeof v === 'object' && !Array.isArray(v));
+
+function showError(message) {
+  $('error-message').textContent = message;
+  $('error-banner').hidden = false;
+}
+
+function hideError() {
+  $('error-banner').hidden = true;
+  $('error-message').textContent = '';
+}
+
+function render(artifact, source = { kind: 'demo' }) {
+  if (artifact === null || typeof artifact !== 'object' || Array.isArray(artifact)) {
+    throw new Error('the top level of the file is not a JSON object');
+  }
+
+  const evidence = asObjectList(artifact.evidence);
+  const metrics = asObjectList(artifact.metrics);
+  const claims = asObjectList(artifact.claims);
+  const candidates = asObjectList(artifact.impact_candidates);
   const claim = claims[0] || {};
   const candidate = candidates[0] || {};
   const metric = metrics[0] || {};
+
   $('artifact-title').textContent = claim.title || claim.change || 'Impact artifact';
+  $('source-badge').textContent = source.kind === 'file' ? `LOADED: ${source.filename}` : 'DEMO DATA';
+  $('source-badge').classList.toggle('source-badge-loaded', source.kind === 'file');
   $('status-pill').innerHTML = `<span class="status-dot"></span> ${escapeText(artifact.run?.analysis_status || 'unknown')}`;
   const stats = [
     ['TOP IMPACT', claim.quantification_type === 'estimated' ? 'Estimated' : 'Measured', claim.impact_level || '—'],
@@ -43,7 +76,30 @@ function render(artifact) {
   $('opportunity-copy').textContent = artifact.impact_opportunities?.[0]?.recommended_measurement || 'No open evidence opportunities were reported.';
 }
 
-function loadFile(file) { const reader = new FileReader(); reader.onload = () => { try { render(JSON.parse(reader.result)); } catch { $('artifact-title').textContent = 'Could not read artifact'; } }; reader.readAsText(file); }
-$('demo-button').addEventListener('click', () => render(demoArtifact));
+// The file never leaves the browser: FileReader reads it into memory,
+// JSON.parse and render() run purely client-side, and nothing here performs
+// a network request with the file's contents.
+function loadFile(file) {
+  const reader = new FileReader();
+  reader.onerror = () => showError(`Could not read "${file.name}" from disk.`);
+  reader.onload = () => {
+    let parsed;
+    try {
+      parsed = JSON.parse(reader.result);
+    } catch {
+      showError(`"${file.name}" is not valid JSON.`);
+      return;
+    }
+    try {
+      render(parsed, { kind: 'file', filename: file.name });
+      hideError();
+    } catch (err) {
+      showError(`"${file.name}" doesn't look like an impact.json artifact (${err.message}).`);
+    }
+  };
+  reader.readAsText(file);
+}
+
+$('demo-button').addEventListener('click', () => { render(demoArtifact); hideError(); });
 $('artifact-input').addEventListener('change', (event) => { if (event.target.files[0]) loadFile(event.target.files[0]); });
 render(demoArtifact);

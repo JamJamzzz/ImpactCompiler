@@ -5,6 +5,13 @@ artifacts. Turns raw evidence into `impact.json` — an artifact containing norm
 deterministically-computed metrics, and Claude-authored `ImpactClaim`s that may only *reference*
 those metrics, never compute or alter them.
 
+ImpactCompiler ships two things: the CLI/engine above, and a small, dependency-free **review
+dashboard** (`web/`, documented [below](#review-dashboard)) for inspecting the resulting
+`impact.json`. The dashboard is a read-only presentation layer — it never computes a metric,
+calls an LLM, or persists anything; selecting a local `impact.json` file is processed entirely
+client-side via the browser's File API, and nothing is ever uploaded, including when the
+dashboard is hosted publicly.
+
 ## Why
 
 Given a commit that fixed a performance problem and a benchmark showing `1.82s -> 0.47s`,
@@ -190,9 +197,31 @@ locally with:
 python -m http.server 4173 --directory web
 ```
 
-Then choose **Open impact.json** to inspect a run. The dashboard is a presentation layer only: it
-does not calculate metrics, call an LLM, or upload artifacts. Keep private evaluation outputs and
-personal impact records outside the public repository (the `evaluations/` directory is ignored).
+Then choose **Open impact.json** to inspect a run, or click **Explore demo artifact** for a
+synthetic example (clearly labeled `DEMO DATA` in the UI). A local artifact you open is read with
+the browser's `FileReader`/`File` APIs and rendered in place — the file is never sent over the
+network, uploaded, or written anywhere; opening a malformed or unexpected artifact shows a visible
+error banner instead of a broken or blank page. Keep private evaluation outputs and personal
+impact records outside the public repository (the `evaluations/` directory is ignored).
+
+### Deployment (AWS Amplify Hosting)
+
+The dashboard is deployable as-is, unmodified, to [AWS Amplify
+Hosting](https://docs.aws.amazon.com/amplify/latest/userguide/welcome.html): `amplify.yml` at the
+repository root tells Amplify to publish `web/` directly, with no build step (there is nothing to
+build — no bundler, no `package.json` inside `web/`). Amplify's native GitHub integration watches
+`main` and redeploys automatically on every push; no separate deploy workflow or credentials are
+stored in this repository for that purpose.
+
+This adds no backend: Amplify Hosting here is a static file host and CDN, not an application
+server. There is no database, no API, no authentication, and no server-side code — the same
+client-only architecture described above holds whether the dashboard is opened from a local file
+or the hosted URL. `impact.json` files opened through the hosted dashboard are processed in the
+visitor's own browser exactly as they are locally; nothing about hosting changes that.
+
+To deploy or update the hosted instance: in the Amplify console, create an app connected to this
+GitHub repository, select `main` as the production branch, and let Amplify pick up `amplify.yml`
+automatically — no manual build configuration is required.
 
 ## Testing
 

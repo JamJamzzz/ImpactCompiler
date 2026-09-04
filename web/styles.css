@@ -3,7 +3,8 @@
 body { margin: 0; color: var(--ink); background: var(--paper); font-family: Manrope, system-ui, sans-serif; }
 body:before { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .26; background-image: radial-gradient(#cbd8d1 .65px, transparent .65px); background-size: 16px 16px; mask-image: linear-gradient(to bottom, #000, transparent 78%); }
 .shell { position: relative; max-width: 1240px; margin: auto; padding: 0 34px; }
-.topbar { height: 86px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+.topbar { min-height: 86px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.file-button { white-space: nowrap; }
 .brand { display: flex; gap: 10px; align-items: center; color: var(--ink); font-size: 17px; font-weight: 800; letter-spacing: -.04em; text-decoration: none; }
 .brand-mark { width: 28px; height: 28px; display: grid; place-items: center; color: #fff; background: var(--ink); border-radius: 8px; font-size: 15px; }
 .brand-muted { color: var(--muted); font-weight: 500; }
@@ -12,6 +13,12 @@ body:before { content: ""; position: fixed; inset: 0; pointer-events: none; opac
 .pulse { display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: #36a66e; box-shadow: 0 0 0 4px #dff2e8; }
 .file-button, .primary-button { border: 0; cursor: pointer; font: 700 12px Manrope, sans-serif; }
 .file-button { padding: 11px 15px; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 8px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.visually-hidden:focus-visible + .file-button { outline: 2px solid var(--green); outline-offset: 2px; }
+.github-link { display: flex; align-items: center; gap: 4px; color: var(--ink); font: 700 12px Manrope, sans-serif; text-decoration: none; }
+.github-link:hover { color: var(--green); }
+.github-link span { font-size: 11px; }
+.privacy-note { display: flex; align-items: center; gap: 7px; margin-top: 16px; color: var(--muted); font: 500 11px/1.4 "DM Mono", monospace; }
 .hero { padding: 90px 0 76px; max-width: 760px; }
 .eyebrow, .section-kicker { color: var(--green); font: 700 10px "DM Mono", monospace; letter-spacing: .14em; }
 h1 { margin: 18px 0 18px; font-size: clamp(45px, 7vw, 78px); line-height: .98; letter-spacing: -.075em; }
@@ -23,8 +30,13 @@ h1 em { color: var(--green); font-style: normal; }
 .primary-button span { margin-left: 10px; font-size: 15px; }
 code { padding: 2px 5px; color: var(--green); background: var(--mint); border-radius: 4px; font-family: "DM Mono", monospace; font-size: 10px; }
 .workspace { margin-bottom: 85px; }
+.error-banner { display: flex; align-items: baseline; gap: 8px; margin-bottom: 18px; padding: 13px 16px; color: #9a3412; background: #fff2ec; border: 1px solid #f3c8b4; border-radius: 10px; font-size: 12px; }
+.error-banner[hidden] { display: none; }
+.error-banner strong { font-size: 12px; }
 .workspace-heading { display: flex; align-items: end; justify-content: space-between; margin-bottom: 22px; }
 h2 { margin: 8px 0 0; font-size: 25px; letter-spacing: -.055em; }
+.source-badge { margin-left: 9px; padding: 3px 7px; color: var(--muted); background: #eef2ef; border-radius: 5px; font: 700 9px "DM Mono", monospace; letter-spacing: .08em; vertical-align: middle; }
+.source-badge-loaded { color: var(--green); background: var(--mint); }
 .status { padding: 7px 10px; color: var(--green); background: var(--mint); border-radius: 20px; font: 700 10px "DM Mono", monospace; text-transform: uppercase; letter-spacing: .05em; }
 .status-dot { display: inline-block; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%; background: #2a9a62; }
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px; }
@@ -63,5 +75,5 @@ h2 { margin: 8px 0 0; font-size: 25px; letter-spacing: -.055em; }
 .review-bars { margin-top: 21px; display: grid; gap: 12px; }.review-bars div { display: grid; grid-template-columns: 130px 1fr; align-items: center; gap: 14px; color: var(--muted); font: 10px "DM Mono", monospace; }.review-bars i { height: 5px; overflow: hidden; background: #edf1ee; border-radius: 9px; }.review-bars b { display: block; height: 100%; background: var(--green); border-radius: inherit; }
 .opportunity-strip { display: flex; align-items: center; gap: 14px; padding: 17px 20px; background: #fff8f2; border: 1px solid #f4dfcd; border-radius: 10px; }.opportunity-icon { color: var(--orange); font-size: 22px; }.opportunity-strip strong { font-size: 12px; }.opportunity-strip p { margin: 3px 0 0; color: #8c7768; font-size: 11px; }.arrow { margin-left: auto; color: var(--orange); font-size: 19px; }
 footer { display: flex; justify-content: space-between; padding: 20px 0 28px; color: var(--muted); border-top: 1px solid var(--line); font-size: 10px; }
-@media (max-width: 760px) { .shell { padding: 0 18px; }.topbar { height: 72px; }.mode-label, .hero-note { display: none; }.hero { padding: 65px 0 52px; }.hero-actions { display: block; }.hero-note { margin-top: 13px; }.stats-grid, .content-grid, .lower-grid { grid-template-columns: 1fr 1fr; }.featured-panel, .metric-panel, .evidence-panel, .review-panel { grid-column: span 2; } footer { gap: 10px; flex-wrap: wrap; } }
-@media (max-width: 480px) { .stats-grid { grid-template-columns: 1fr 1fr; }.stat-card { padding: 15px; }.stat-value { font-size: 21px; }.panel { padding: 18px; }.featured-claim { font-size: 19px; } }
+@media (max-width: 760px) { .shell { padding: 0 18px; }.topbar { min-height: 64px; }.mode-label, .hero-note { display: none; }.hero { padding: 65px 0 52px; }.hero-actions { display: block; }.hero-note { margin-top: 13px; }.stats-grid, .content-grid, .lower-grid { grid-template-columns: 1fr 1fr; }.featured-panel, .metric-panel, .evidence-panel, .review-panel { grid-column: span 2; } footer { gap: 10px; flex-wrap: wrap; } }
+@media (max-width: 480px) { .topbar-actions { gap: 12px; }.brand { font-size: 15px; gap: 8px; }.brand-mark { width: 24px; height: 24px; font-size: 13px; }.github-link { font-size: 11px; }.file-button { padding: 9px 12px; font-size: 11px; }.stats-grid { grid-template-columns: 1fr 1fr; }.stat-card { padding: 15px; }.stat-value { font-size: 21px; }.panel { padding: 18px; }.featured-claim { font-size: 19px; } }

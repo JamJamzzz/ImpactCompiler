@@ -19,8 +19,9 @@
         </a>
         <div class="topbar-actions">
           <span class="mode-label"><span class="pulse"></span> Evidence-first review</span>
+          <a class="github-link" href="https://github.com/JamJamzzz/ImpactCompiler" target="_blank" rel="noopener noreferrer" aria-label="View ImpactCompiler source on GitHub">GitHub <span>↗</span></a>
+          <input id="artifact-input" class="visually-hidden" type="file" accept="application/json,.json" aria-describedby="privacy-note" />
           <label class="file-button" for="artifact-input">Open impact.json</label>
-          <input id="artifact-input" type="file" accept="application/json,.json" hidden />
         </div>
       </header>
 
@@ -28,17 +29,23 @@
         <section class="hero">
           <div class="eyebrow">QUANTIFIED IMPACT / REVIEW WORKSPACE</div>
           <h1>Make the evidence<br /><em>impossible to miss.</em></h1>
-          <p class="hero-copy">A clear, traceable view of what changed, what moved, and how confidently you can say it.</p>
+          <p class="hero-copy">ImpactCompiler turns engineering evidence — commits, benchmarks, production metrics — into deterministic, auditable impact claims. This dashboard is its read-only review layer: open an <code>impact.json</code> artifact and see exactly what was measured and why it's trustworthy.</p>
           <div class="hero-actions">
             <button class="primary-button" id="demo-button">Explore demo artifact <span>↗</span></button>
-            <span class="hero-note">Drop an <code>impact.json</code> to inspect your own run</span>
+            <span class="hero-note">Or open your own <code>impact.json</code> using the button above</span>
           </div>
+          <p class="privacy-note" id="privacy-note"><span aria-hidden="true">🔒</span> Processed locally in your browser — nothing is uploaded, logged, or sent to a server.</p>
         </section>
 
         <section class="workspace" aria-live="polite">
+          <div class="error-banner" id="error-banner" role="alert" hidden>
+            <strong>Couldn't load this file.</strong>
+            <span id="error-message"></span>
+          </div>
+
           <div class="workspace-heading">
             <div>
-              <div class="section-kicker">CURRENT ARTIFACT</div>
+              <div class="section-kicker">CURRENT ARTIFACT <span class="source-badge" id="source-badge">DEMO DATA</span></div>
               <h2 id="artifact-title">Customer matching engine</h2>
             </div>
             <div class="status" id="status-pill"><span class="status-dot"></span> analyzed</div>
