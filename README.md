@@ -189,12 +189,13 @@ worked example of both the CLI-invocation and direct-import consumption patterns
 
 ## Review dashboard
 
-The repository includes a dependency-free static dashboard in [`web/`](web/) for reviewing an
-`impact.json` artifact. Open [`web/index.html`](web/index.html) in a browser, or serve the folder
-locally with:
+The repository includes a React/Vite review dashboard in [`web/`](web/) for reviewing an
+`impact.json` artifact. Run it locally with:
 
 ```bash
-python -m http.server 4173 --directory web
+cd web
+npm install
+npm run dev
 ```
 
 Then choose **Open impact.json** to inspect a run, or click **Explore demo artifact** for a
@@ -208,10 +209,10 @@ impact records outside the public repository (the `evaluations/` directory is ig
 
 The dashboard is deployable as-is, unmodified, to [AWS Amplify
 Hosting](https://docs.aws.amazon.com/amplify/latest/userguide/welcome.html): `amplify.yml` at the
-repository root tells Amplify to publish `web/` directly, with no build step (there is nothing to
-build — no bundler, no `package.json` inside `web/`). Amplify's native GitHub integration watches
-`main` and redeploys automatically on every push; no separate deploy workflow or credentials are
-stored in this repository for that purpose.
+repository root tells Amplify to install the locked dependencies, build the Vite application, and
+publish `web/dist/`. Amplify's native GitHub integration watches `main` and redeploys automatically
+on every push; no separate deploy workflow or credentials are stored in this repository for that
+purpose.
 
 This adds no backend: Amplify Hosting here is a static file host and CDN, not an application
 server. There is no database, no API, no authentication, and no server-side code — the same

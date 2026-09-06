@@ -1,94 +1,16 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="ImpactCompiler evidence review dashboard" />
-    <title>ImpactCompiler — Evidence Review</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ImpactCompiler — deterministic, evidence-backed impact review for engineering work." />
+    <title>ImpactCompiler — Impact Review</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <div class="shell">
-      <header class="topbar">
-        <a class="brand" href="./">
-          <span class="brand-mark">✦</span>
-          <span>Impact<span class="brand-muted">Compiler</span></span>
-        </a>
-        <div class="topbar-actions">
-          <span class="mode-label"><span class="pulse"></span> Evidence-first review</span>
-          <a class="github-link" href="https://github.com/JamJamzzz/ImpactCompiler" target="_blank" rel="noopener noreferrer" aria-label="View ImpactCompiler source on GitHub">GitHub <span>↗</span></a>
-          <input id="artifact-input" class="visually-hidden" type="file" accept="application/json,.json" aria-describedby="privacy-note" />
-          <label class="file-button" for="artifact-input">Open impact.json</label>
-        </div>
-      </header>
-
-      <main>
-        <section class="hero">
-          <div class="eyebrow">QUANTIFIED IMPACT / REVIEW WORKSPACE</div>
-          <h1>Make the evidence<br /><em>impossible to miss.</em></h1>
-          <p class="hero-copy">ImpactCompiler turns engineering evidence — commits, benchmarks, production metrics — into deterministic, auditable impact claims. This dashboard is its read-only review layer: open an <code>impact.json</code> artifact and see exactly what was measured and why it's trustworthy.</p>
-          <div class="hero-actions">
-            <button class="primary-button" id="demo-button">Explore demo artifact <span>↗</span></button>
-            <span class="hero-note">Or open your own <code>impact.json</code> using the button above</span>
-          </div>
-          <p class="privacy-note" id="privacy-note"><span aria-hidden="true">🔒</span> Processed locally in your browser — nothing is uploaded, logged, or sent to a server.</p>
-        </section>
-
-        <section class="workspace" aria-live="polite">
-          <div class="error-banner" id="error-banner" role="alert" hidden>
-            <strong>Couldn't load this file.</strong>
-            <span id="error-message"></span>
-          </div>
-
-          <div class="workspace-heading">
-            <div>
-              <div class="section-kicker">CURRENT ARTIFACT <span class="source-badge" id="source-badge">DEMO DATA</span></div>
-              <h2 id="artifact-title">Customer matching engine</h2>
-            </div>
-            <div class="status" id="status-pill"><span class="status-dot"></span> analyzed</div>
-          </div>
-
-          <div class="stats-grid" id="stats-grid"></div>
-
-          <div class="content-grid">
-            <section class="panel featured-panel">
-              <div class="panel-heading"><span>Recommended impact</span><span class="confidence-badge" id="confidence-badge">HIGH CONFIDENCE</span></div>
-              <div id="featured-claim" class="featured-claim"></div>
-              <div class="claim-footer" id="claim-footer"></div>
-            </section>
-
-            <section class="panel metric-panel">
-              <div class="panel-heading"><span>Measured movement</span><span class="mono" id="metric-count"></span></div>
-              <div id="metrics-list" class="metrics-list"></div>
-            </section>
-          </div>
-
-          <div class="content-grid lower-grid">
-            <section class="panel evidence-panel">
-              <div class="panel-heading"><span>Evidence trail</span><span class="mono" id="evidence-count"></span></div>
-              <div id="evidence-list" class="evidence-list"></div>
-            </section>
-            <section class="panel review-panel">
-              <div class="panel-heading"><span>Review signal</span><span class="signal-label">TRACEABLE BY DESIGN</span></div>
-              <div class="review-score"><span id="review-score">4.8</span><small>/ 5</small></div>
-              <p id="review-copy">The headline is grounded in a controlled before/after measurement and keeps scope visible.</p>
-              <div class="review-bars"><div><span>Evidence strength</span><i><b style="width: 96%"></b></i></div><div><span>Attribution</span><i><b style="width: 92%"></b></i></div><div><span>Scope clarity</span><i><b style="width: 88%"></b></i></div></div>
-            </section>
-          </div>
-
-          <section class="opportunity-strip" id="opportunity-strip">
-            <span class="opportunity-icon">＋</span>
-            <div><strong>Strengthen this impact</strong><p id="opportunity-copy">Add a production observation window to connect the benchmark to real-world behavior.</p></div>
-            <span class="arrow">→</span>
-          </section>
-        </section>
-      </main>
-
-      <footer><span>ImpactCompiler</span><span>Deterministic metrics · Auditable claims · No invented numbers</span><span class="mono">V5</span></footer>
-    </div>
-    <script src="app.js" defer></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

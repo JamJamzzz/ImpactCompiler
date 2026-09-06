@@ -1,5 +1,6 @@
 node_modules/
 out/
+web/dist/
 evaluations/
 *.impact.json
 *.impact.md

@@ -1,18 +1,18 @@
-# AWS Amplify Hosting build spec for ImpactCompiler's review dashboard.
-#
-# The dashboard (web/) is a dependency-free static site — plain HTML/CSS/JS,
-# no bundler, no package.json of its own. There is nothing to install or
-# build, so this spec's only job is to tell Amplify which directory to
-# publish as-is. This does NOT deploy or affect the ImpactCompiler CLI/engine
-# in src/ — Amplify only ever serves web/.
 version: 1
 frontend:
   phases:
+    preBuild:
+      commands:
+        - cd web
+        - npm ci
     build:
-      commands: []
+      commands:
+        - cd web
+        - npm run build
   artifacts:
-    baseDirectory: web
+    baseDirectory: web/dist
     files:
       - '**/*'
   cache:
-    paths: []
+    paths:
+      - web/node_modules/**/*
