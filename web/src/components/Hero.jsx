@@ -9,7 +9,7 @@ function Hero({ selectedFileName, onFileSelect, view }) {
 
   return (
     <section id="overview" className="scroll-mt-20 w-full bg-gradient-to-b from-gray-50/70 to-white">
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-10 lg:py-28">
+      <div className="mx-auto grid w-full max-w-6xl gap-12 px-5 pb-8 pt-16 sm:px-8 sm:pb-10 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-10 lg:pb-14 lg:pt-28">
         <div>
           <h1 className="max-w-xl text-3xl font-semibold leading-tight tracking-tight text-gray-950 sm:text-4xl">
             Turn engineering evidence into auditable impact.

@@ -15,7 +15,7 @@ function Dashboard({ view, error }) {
     <>
       {/* Band 1 — artifact summary */}
       <section id="summary" className="scroll-mt-20 w-full bg-white">
-        <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
+        <div className="mx-auto w-full max-w-6xl px-5 pb-16 pt-8 sm:px-8 sm:pb-20 sm:pt-10">
           {error && (
             <div className="mb-8 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700 shadow-sm">
               {error} Showing the previously loaded artifact instead.
